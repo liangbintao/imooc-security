@@ -2,8 +2,10 @@ package com.imooc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * @ClassName DemoApplication
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date 2019/4/25/025 22:18
  * @Version 1.0
  */
+@EnableSwagger2
 @RestController
 @SpringBootApplication
 public class DemoApplication {
