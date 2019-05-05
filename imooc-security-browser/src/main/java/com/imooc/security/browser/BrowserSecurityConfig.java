@@ -1,5 +1,6 @@
 package com.imooc.security.browser;
 
+import com.imooc.security.browser.authentication.ImoocAuthenticationSuccessHandler;
 import com.imooc.security.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -30,26 +31,22 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private MyUserDetailsService userDetailsService;
 
+    @Autowired
+    private ImoocAuthenticationSuccessHandler imoocAuthenticationSuccessHandler;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http.formLogin()
-                .loginPage("/imooc-signIn.html")
+                .loginPage("/authentication/require")
                 .loginProcessingUrl("/authentication/form")
+                .successHandler(imoocAuthenticationSuccessHandler)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/imooc-signIn.html", securityProperties.getBrowser().getLoginPage()).permitAll()
+                .antMatchers("/authentication/require", securityProperties.getBrowser().getLoginPage()).permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .csrf().disable();
-        /*http
-                .authorizeRequests()
-                .antMatchers("/login").permitAll()
-                //.antMatchers("/user/**").hasRole("USER")
-                .and()
-                .formLogin().loginPage("/login").defaultSuccessUrl("/user")
-                .and()
-                .logout().logoutUrl("/logout").logoutSuccessUrl("/login");*/
     }
 }
