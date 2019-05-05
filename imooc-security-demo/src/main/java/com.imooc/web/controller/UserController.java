@@ -54,7 +54,9 @@ public class UserController {
 
         // throw new RuntimeException("user not exist");
         User user = new User();
+        user.setId(1L);
         user.setUsername("tom");
+        user.setPasswrod("123");
 
         return user;
     }
